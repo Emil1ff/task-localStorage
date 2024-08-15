@@ -13,10 +13,9 @@
 // error versin logda  ve elave edilmesin
 
 
-let users = JSON.parse(localStorage.getItem('users')) || [];
 
 function addUser(username) {
-
+let users = JSON.parse(localStorage.getItem('users')) || [];
     try {
         if (users.includes(username)) {
             throw new Error("username artiq var")
@@ -31,14 +30,14 @@ function addUser(username) {
     }
 
 }
-
 function removeUser(username) {
+let users = JSON.parse(localStorage.getItem('users')) || [];
     try {
         if (!users.includes(username)) {
             throw new Error(`${username} deye sexs qoqqu`);
         } else {
-            users = users.filter(user => user == username);
-            localStorage.removeItem('users', JSON.stringify(users));
+            users = users.filter(item => item != username);
+            localStorage.setItem('users', JSON.stringify(users)); 
             console.log(`${username} silindi tebrikler`);
             logUsers();
         }
@@ -46,15 +45,16 @@ function removeUser(username) {
         console.error(err.message);
     }
 }
-
 function logUsers() {
     console.log(users);
 }
 
 addUser('Emil');
 addUser("Hemid")
+addUser('Kenan');  
 addUser("Yusif")
 addUser('Kenan');
+
+
 removeUser('Emil');
 removeUser('Veli');
-addUser('Kenan');  
